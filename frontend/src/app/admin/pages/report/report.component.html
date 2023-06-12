@@ -1,0 +1,84 @@
+<div class="container-fluid">
+
+    <div class="pt-3 mb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Yakunlangan harakatlar</h3>
+        </div>
+        <hr class="my-0">
+    </div>
+
+    <form class="mb-4" [formGroup]="filterForm" (submit)="send()">
+        <div class="d-flex ms-auto">
+            <select formControlName="deliverer_id" class="form-select mx-2">
+                <option value="0">Eltuvchi</option>
+                <option *ngFor="let item of deliverer" [value]="item.id">{{ item.fullname }}</option>
+            </select>
+            <input type="datetime-local" formControlName="start_date" class="form-control">
+            <input type="datetime-local" formControlName="end_date" class="form-control mx-2">
+            <button type="submit" class="btn btn-dark me-2">Filter</button>
+            <button type="reset" (click)="load()" class="btn">Tozalash</button>
+        </div>
+    </form>
+
+    <div class="table-responsive" *ngIf="order.length > 0; else notFound">
+        <table class="table table-striped table-hover border mb-0">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Manzillar</th>
+                    <th>Yuk haqida</th>
+                    <th>So'm</th>
+                    <th>Mijoz</th>
+                    <th>Eltuvchi</th>
+                    <th>Status</th>
+                    <th>Matn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of order; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td [ngClass]="{
+                            'text-danger': item.status == 0,
+                            'text-warning': item.status == 1,
+                            'text-info': item.status == 2,
+                            'text-success': item.status == 3,
+                            'text-dark': item.status == 4
+                        }">
+                        {{ item.from }} <i class="fa fa-right-long text-dark mx-2"></i> {{ item.to }}
+                    </td>
+                    <td>{{ item.goods }}</td>
+                    <td>{{ item.summ }}</td>
+                    <td>{{ item.client_fullname }}</td>
+                    <td>{{ item.deliverer_fullname }}</td>
+                    <td>{{ item.status_name }}</td>
+                    <td>
+                        <button (click)="setText(item.message_text)" class="btn btn-sm" data-mdb-toggle="modal"
+                            data-mdb-target="#textModal">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ng-template #notFound>
+        <div class="my-5">
+            <p class="text-center text-black">Hech narsa topilmadi!</p>
+        </div>
+    </ng-template>
+</div>
+
+
+<!-- text show modal -->
+<app-modal [modalId]="'textModal'">
+    <div class="modal-header text-center">
+        <h5 class="modal-title" id="textModalLabel">Buyurtma matni</h5>
+    </div>
+    <div class="modal-body">
+        {{ text }}
+    </div>
+    <div class="modal-footer">
+        <button data-mdb-dismiss="modal" type="button" class="btn btn-primary">Yopish</button>
+    </div>
+</app-modal>

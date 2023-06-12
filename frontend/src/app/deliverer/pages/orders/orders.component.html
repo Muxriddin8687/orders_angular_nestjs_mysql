@@ -1,0 +1,79 @@
+<div class="container">
+
+    <div class="my-5">
+        <h3 class="mb-4 text-center">Buyurtmalar</h3>
+        <table class="table table-striped table-hover border mb-0" *ngIf="orders.length > 0; else notFound">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Manzillar</th>
+                    <th>Yuk haqida</th>
+                    <th>So'm</th>
+                    <th>Mijoz</th>
+                    <th>Mijoz tel.</th>
+                    <th>Status</th>
+                    <th>Matn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of orders; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td [ngClass]="{
+                                'text-danger': item.status == 0,
+                                'text-warning': item.status == 1,
+                                'text-info': item.status == 2,
+                                'text-success': item.status == 3,
+                                'text-dark': item.status == 4
+                            }">
+                        {{ item.from }} <i class="fa fa-right-long text-dark mx-2"></i> {{ item.to }}
+                    </td>
+                    <td>{{ item.goods }}</td>
+                    <td>{{ item.summ }}</td>
+                    <td>{{ item.client_fullname }}</td>
+                    <td>{{ item.client_phone }}</td>
+                    <td>{{ item.status_name }}</td>
+                    <td>
+                        <button (click)="setText(item.message_text)" class="btn btn-sm me-2" data-mdb-toggle="modal"
+                            data-mdb-target="#textModal">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                        <div class="dropdown mt-2">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                status
+                            </button>
+                            <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
+                                <li><button type="button" (click)="changeStatus(item.id, 0)" class="dropdown-item">Qabul qilindi</button></li>
+                                <li><button type="button" (click)="changeStatus(item.id, 1)" class="dropdown-item">Olib ketilmoqda</button></li>
+                                <li><button type="button" (click)="changeStatus(item.id, 2)" class="dropdown-item">Olib borilmoqda</button></li>
+                                <li><button type="button" (click)="changeStatus(item.id, 3)" class="dropdown-item">Yetkazildi</button></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #notFound>
+            <div class="my-5">
+                <p class="text-center text-black">Hech narsa topilmadi!</p>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<div class="modal fade" id="textModal" tabindex="-1" aria-labelledby="textModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h5 class="modal-title" id="textModalLabel">Buyurtma matni</h5>
+            </div>
+            <div class="modal-body">
+                {{ text }}
+            </div>
+            <div class="modal-footer">
+                <button data-mdb-dismiss="modal" type="button" class="btn btn-primary">Yopish</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+<main>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./assets/images/logo.svg" height="80px" alt="">
+            </a>
+
+            <button type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a routerLink="/client" class="nav-link">Kirish</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/main/register" class="nav-link">Ro'yhatdan o'tish</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <header class="header">
+        <div class="overlay">
+            <h1 class="subtitle">Har qanday turdagi<br />yuk va buyubmlaringizni eltib berish xizmati</h1>
+            <h1 class="title fs-3 mt-4">LeadGoods sizning xizmatingizda</h1>
+        </div>
+        <div class="shape">
+            <svg viewBox="0 0 1500 200">
+                <path
+                    d="m 0,240 h 1500.4828 v -71.92164 c 0,0 -286.2763,-81.79324 -743.19024,-81.79324 C 300.37862,86.28512 0,168.07836 0,168.07836 Z" />
+            </svg>
+        </div>
+    </header>
+
+
+    <section id="service" class="section pt-0">
+        <div class="container">
+            <h6 class="section-title text-center">Bizning xizmatlarimiz</h6>
+            <h6 class="section-subtitle text-center mb-5 pb-3">Sizning qulayligingiz uchun.</h6>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4 mb-md-0 h-100">
+                        <div class="card-body">
+                            <small class="text-primary fw-bold fs-3">01</small>
+                            <h5 class="card-title mt-3">Qulaylik</h5>
+                            <p class="mb-0">Bizning kompaniyamiz, sifatli yuk yoki buyurtmalarni eltish shakllarini
+                                taqdim etish va ulardan foydalanuvchilarga tez va samarali yetkazib berishni ta'minlash
+                                uchun xizmat ko'rsatadi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 mb-md-0 h-100">
+                        <div class="card-body">
+                            <small class="text-primary fw-bold fs-3">02</small>
+                            <h5 class="card-title mt-3">Sifat</h5>
+                            <p class="mb-0">Bizning ishimiz sifatli va tez yetkazib berishga asoslangan bo'lib,
+                                foydalanuvchilarga qulaylik va ishonch hissi taqdim etishni maqsad qiladi. Biz sizning
+                                biznesingizga qo'shimcha qadr qo'shish uchun shunday xizmatlar ko'rsatishga tayyormiz.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 mb-md-0 h-100">
+                        <div class="card-body">
+                            <small class="text-primary fw-bold fs-3">03</small>
+                            <h5 class="card-title mt-3">Ishonch</h5>
+                            <p class="mb-0">Bizning xizmatlarimiz sizga buyurtmalar shakllantirish va yetkazib berish
+                                jarayonida yordam berish uchun tayyor. Biz bilan bog'laning va sizning
+                                buyurtmalaringizga tez va samarali xizmat ko'rsatishga tayyormiz.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <form #f="ngForm" (ngSubmit)="send(f)" class="px-4 py-5 shadow rounded">
+                <h3 class="text-center mb-4">Ro'yhatdan o'ting va bizga xabar qoldiring</h3>
+                <input type="text" ngModel name="fullname" placeholder="F.I.Sh" class="form-control mb-4" minlength="4"
+                    required>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-light">+998</span>
+                    </div>
+                    <input ngModel name="phone" type="text" class="form-control" placeholder="009009090" required
+                        minlength="9">
+                </div>
+                <input type="text" ngModel name="passport_seria" pattern="^[A-Z][A-Z][0-9]\d\s?\d{4}[0-9]$"
+                    placeholder="Passport seria va raqami" class="form-control mb-4" required>
+                <input type="text" ngModel name="address" placeholder="Manzil" class="form-control mb-4" minlength="10"
+                    required>
+                <button type="submit" [disabled]="f.invalid"
+                    class="btn btn-block btn-info text-light">Tasdiqlash</button>
+
+                <div class="mt-4 bg-success text-light py-4 text-center" [class.d-none]="!showError">
+                    <h4 class="mb-0">Muaffaqiyatli ro'yhadtan o'tdingiz!</h4>
+                </div>
+            </form>
+            <footer class="mt-5 py-4 border-top border-secondary">
+                <p class="mb-0 small">&copy; {{ date | date: 'YYYY' }} LeadGoods Created By <a href="#"
+                        target="_blank">UBTUIT.</a> All rights reserved </p>
+            </footer>
+        </div>
+    </section>
+
+    <a routerLink="/client" class="btn btn-outline-light btn-lg m-2">Kirish</a>
+    <a routerLink="/main/register" class="btn btn-outline-light btn-lg m-2">Ro'yhatdan o'tish</a>
+</main>

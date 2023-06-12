@@ -1,0 +1,88 @@
+<div class="container-fluid">
+
+    <div class="pt-3 my-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>Eltuvchilar</h3>
+            <button class="btn btn-success" type="button" data-mdb-toggle="modal" data-mdb-target="#addDelivererModal">+ Qo'shish</button>
+        </div>
+        <hr class="my-0">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border mb-0">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>I.F.Sh</th>
+                    <th>Telefon</th>
+                    <th>Tug'ulgan kuni</th>
+                    <th>Passport seria</th>
+                    <th>Manzili</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of deliverer; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.fullname }}</td>
+                    <td>{{ item.phone }}</td>
+                    <td>{{ item.birthday | date:'dd.MM.YYYY' }}</td>
+                    <td>{{ item.passport_seria }}</td>
+                    <td>{{ item.address }}</td>
+                    <td>
+                        <button (click)="update(item)" data-mdb-toggle="modal" data-mdb-target="#addDelivererModal"
+                            class="btn btn-succes btn-sm btn-warning me-2">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                        <button (click)="delete(item.id)" class="btn btn-sm btn-danger mt-2">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!-- show modal -->
+<app-modal [modalId]="'addDelivererModal'">
+    <form *ngIf="selectedDeliverer" #f="ngForm" (ngSubmit)="send(f)">
+        <div class="modal-header">
+            <h4 class="modal-title text-center w-100">Eltuvchi ma'lumotlarini tahrirlash</h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group mb-3">
+                <label class="form-label">F.I.Sh</label>
+                <input [(ngModel)]="selectedDeliverer.fullname" name="fullname" type="text" class="form-control" required minlength="5"
+                    placeholder="Aliyev Vali Erkinovich">
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Telefon</label>
+                <input [(ngModel)]="selectedDeliverer.phone" name="phone" type="text" class="form-control" required minlength="5"
+                    placeholder="+998 (90) 987-65-43">
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Tug'ulgan kuni</label>
+                <input [(ngModel)]="selectedDeliverer.birthday" name="birthday" type="date" class="form-control" required>
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Passport seria</label>
+                <input [(ngModel)]="selectedDeliverer.passport_seria" name="passport_seria" type="text" class="form-control" required minlength="5"
+                    placeholder="AB1233212">
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">Yashash joyi</label>
+                <input [(ngModel)]="selectedDeliverer.address" name="address" type="text" class="form-control" required minlength="5"
+                    placeholder="">
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button data-mdb-dismiss="modal" type="reset" class="btn btn-warning me-2">Bekor qilish</button>
+            <button data-mdb-dismiss="modal" type="submit" [disabled]="f.invalid" class="btn btn-primary">Saqlash</button>
+        </div>
+    </form>
+</app-modal>
